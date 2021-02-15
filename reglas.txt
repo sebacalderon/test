@@ -12,26 +12,26 @@ service cloud.firestore {
       allow read: if isSignedIn() && isOwner(resource.data.rut);
       allow write: if isSignedIn();
     }
-    match /avSavMarketing/{document=**} {
-      allow read: if isSignedIn();
-      allow write: if isSignedIn();
-    }
     match /benefitRuts/{benefitRutId} {
       allow read;
       allow write;
     }
-    match /linkedProducts/{document=**} {
-      allow read;
-    }
     match /benefitSubscriptions/{document=**} {
       allow read;
       allow write;
+    }
+    match /avSavMarketing/{document=**} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
     }
     match /benefitTransaction/{transactionId} {
       allow create: if isSignedIn();
       allow read; // if isSignedIn() && isOwner(resource.data.userId);
       allow write: if isSignedIn();
       allow delete: if false;
+    }
+    match /linkedProducts/{document=**} {
+      allow read;
     }
     match /benefitCodes/{benefitCodeId} {
       allow read: if isSignedIn();
