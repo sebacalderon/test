@@ -1,30 +1,30 @@
 service cloud.firestore {
   match /databases/{database}/documents {
-  		match /avsavPromotions/{promotionId} {
-    	allow read: if isSignedIn();
+    match /avsavPromotions/{promotionId} {
+      allow read: if isSignedIn();
       allow write: if isSignedIn();
     }
-		match /productsBlackList/{blockedId} {
-    	allow read: if isSignedIn(); 
+    match /productsBlackList/{blockedId} {
+      allow read: if isSignedIn(); 
       allow write: if isSignedIn();
     }
-  	match /avsavSimulations/{simulationId} {
-    	allow read: if isSignedIn() && isOwner(resource.data.rut);
+    match /avsavSimulations/{simulationId} {
+      allow read: if isSignedIn() && isOwner(resource.data.rut);
       allow write: if isSignedIn();
     }
     match /avSavMarketing/{document=**} {
-    	allow read: if isSignedIn();
+      allow read: if isSignedIn();
       allow write: if isSignedIn();
     }
-  	match /benefitRuts/{benefitRutId} {
-    	allow read;
+    match /benefitRuts/{benefitRutId} {
+      allow read;
       allow write;
     }
     match /linkedProducts/{document=**} {
-    	allow read;
+      allow read;
     }
     match /benefitSubscriptions/{document=**} {
-    	allow read;
+      allow read;
       allow write;
     }
     match /benefitTransaction/{transactionId} {
@@ -155,6 +155,17 @@ service cloud.firestore {
     	allow read: if isSignedIn();
       allow write: if isSignedIn();
     }
+    match /pushTasks/{document=**} {
+    	allow read: if isSignedIn();
+    	allow write: if isSignedIn();
+    }
+    match /pushTray/{document=**} {
+    	allow read: if isSignedIn();
+    	allow write: if isSignedIn();
+    }
+    match /pushTransactionalConfig/{document=**} {
+    	allow read: if isSignedIn();
+    }
     match /campaign/{document=**} {
     	allow read;
     }
@@ -248,17 +259,6 @@ service cloud.firestore {
     match /notificationTokens/{document=**} {
     	allow read;
     	allow write;
-    }
-    match /pushTasks/{document=**} {
-    	allow read: if isSignedIn();
-    	allow write: if isSignedIn();
-    }
-    match /pushTray/{document=**} {
-    	allow read: if isSignedIn();
-    	allow write: if isSignedIn();
-    }
-    match /pushTransactionalConfig/{document=**} {
-    	allow read: if isSignedIn();
     }
     match /userSavings/{document=**} {
     	allow read: if isSignedIn() && isOwner(resource.data.userId);
