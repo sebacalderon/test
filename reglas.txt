@@ -1,0 +1,320 @@
+service cloud.firestore {
+  match /databases/{database}/documents {
+  		match /avsavPromotions/{promotionId} {
+    	allow read: if isSignedIn();
+      allow write: if isSignedIn() && isAdmin();
+    }
+		match /productsBlackList/{blockedId} {
+    	allow read: if isSignedIn(); 
+      allow write: if isSignedIn();
+    }
+  	match /avsavSimulations/{simulationId} {
+    	allow read: if isSignedIn() && isOwner(resource.data.rut);
+      allow write: if isSignedIn();
+    }
+  	match /benefitRuts/{benefitRutId} {
+    	allow read;
+      allow write;
+    }
+    match /benefitSubscriptions/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /linkedProducts/{document=**} {
+    	allow read;
+    }
+    match /benefitTransaction/{transactionId} {
+      allow create: if isSignedIn();
+      allow read; // if isSignedIn() && isOwner(resource.data.userId);
+      allow write: if isSignedIn();
+      allow delete: if false;
+    }
+    match /benefitCodes/{benefitCodeId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+    match /productTransactions/{transactionId} {
+      allow create: if isSignedIn()
+      && incomingData().userId == request.auth.uid;
+      allow read: if (isSignedIn() && isOwner(resource.data.userId)) || isAdmin();
+      allow write: if isSignedIn();
+      allow delete: if false;
+    }
+    match /newClientTransactions/{newClientId} {
+      allow create: if isSignedIn()
+      && incomingData().userId == request.auth.uid;
+      allow read: if isSignedIn() && isOwner(resource.data.userId);
+      allow write: if isSignedIn();
+      allow delete: if false;
+    }
+    match /productPreTransactions/{transactionId} {
+      allow create: if isSignedIn();
+      allow read: if isSignedIn() && isOwner(resource.data.userId);
+      allow write: if isSignedIn();
+      allow delete: if false;
+    }
+    match /productCodes/{productCodeId} {
+      allow read: if isAdmin();
+      allow write: if isAdmin();
+    }
+    match /benefits/{benefitId} {
+      allow write: if isSignedIn();
+      allow read;
+    }
+    match /Bullet-status/{document=**} {
+    	allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+    match /cardBenefits/{document=**} {
+    	allow read;
+    }
+    match /cloud/{document=**} {
+    	allow read;
+    }
+    match /codes/{document=**} {
+    	allow read;
+    }
+    match /config/{document=**} {
+    	allow read;
+    	allow write: if isSignedIn() && isAdmin();
+    }
+    match /exclusiveCredentials/{document=**} {
+    	allow read;
+    }
+    match /exclusiveCredentialsInfo/{document=**} {
+    	allow read;
+    }
+    match /gamification/{document=**} {
+    	allow read;
+    }
+    match /latamMiles/{document=**} {
+    	allow read;
+    }
+    match /productCategories/{document=**} {
+    	allow read: if isSignedIn();
+    	allow write: if isAdmin();
+    }
+    match /productMailRecipients/{document=**} {
+    	allow read: if false;
+    	allow write: if false;
+    }
+    match /products/{document=**} {
+    	allow read: if isSignedIn();
+    	allow write: if isAdmin();
+    }
+    match /whatsapp/{document=**} {
+    	allow read;
+    }
+    match /appClubBenefits/{document=**} {
+    	allow read;
+    }
+    match /appData/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /PWA-banners/{document=**} {
+    	allow read;
+    }
+    match /PWA-sightAccount/{document=**} {
+    	allow read;
+    }
+  	match /PWA-benefits-ripley-points-go/{document=**} {
+    	allow read;
+    }
+    match /disclaimerData/{document=**} {
+    	allow read;
+    }
+    match /usPersonSightAccount/{document=**} {
+    	allow read;
+    	allow write: if isSignedIn();
+    }
+    match /badges/{document=**} {
+    	allow read;
+    }
+    match /categories/{document=**} {
+    	allow read;
+    }
+    match /campaign/{document=**} {
+    	allow read;
+    }
+    match /campaigns/{document=**} {
+    	allow read;
+    }
+    match /companyDisclaimerData/{document=**} {
+    	allow read;
+    }
+    match /companyDisclaimerDataPayment/{document=**} {
+    	allow read;
+    }
+    match /company-category/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /company-category-pat/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /claim-by-dv/{document=**} {
+    	allow read;
+    }
+    match /translator/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /bannerCampaigns/{document=**} {
+    	allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+    match /bannerCampaignsUsers/{document=**} {
+    	allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+    match /pushTasks/{document=**} {
+    	allow read: if isSignedIn();
+    	allow write: if isSignedIn();
+    }
+    match /pushTray/{document=**} {
+    	allow read;
+    	allow write;
+    }
+    match /pushTransactionalConfig/{document=**} {
+    	allow read: if isSignedIn();
+    }
+    match /additionalStoresForMap/{document=**} {
+    	allow read;
+    }
+    match /benefitType/{document=**} {
+    	allow read;
+    	allow write: if isSignedIn() && isAdmin();
+    }
+    match /adminUsers/{document=**} {
+    	allow read: if isSignedIn();
+    	allow write: if isSignedIn();
+    }
+    match /userInfo/{document=**} {
+    	allow read: if isSignedIn();
+    	allow write: if isSignedIn();
+    }
+    match /userDevices/{document=**} {
+    	allow read;
+    	allow write;
+    }
+    match /notificationTokens/{document=**} {
+    	allow read;
+    	allow write;
+    }
+    match /balanceDue/{document=**} {
+    	allow read: if isSignedIn();
+    }
+    match /uploadedCodes/{document=**} {
+    	allow write: if isAdmin();
+      allow read: if isAdmin();
+    }
+    match /NFC-status/{document=**} {
+    	allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+  	match /NPS-status/{document=**} {
+    	allow read: if isSignedIn(); 
+      allow write: if isSignedIn();
+    }
+    match /NPS-status/{document=**} {
+    	allow read: if isSignedIn(); 
+      allow write: if isSignedIn();
+    }
+    match /NPS-TimeManagement/{document=**} {
+    	allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+    match /NPS-OnOff/{document=**} {
+    	allow read: if isSignedIn();
+    }
+    match /welcomeCampaigns/{document=**} {
+    	allow read;
+      allow write: if isSignedIn();
+    }
+		match /welcomeCampaignScreens/{document=**} {
+    	allow read;
+      allow write: if isSignedIn();
+    }
+		match /welcomeCampaignUsers/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /welcomeCampaignUserViewsGoals/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /sliderCampaigns/{document=**} {
+    	allow read;
+      allow write: if isSignedIn();
+    }
+    match /sliderCampaignUsers/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /sliderCampaignUserViewsGoals/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /avSavCampaignsCampaignUserViewsGoals/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /avSavCampaigns/{document=**} {
+    	allow read;
+      allow write: if isSignedIn();
+    }
+    match /avSavCampaignsUsers/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /avSavSimulationBannersCampaignUserViewsGoals/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /avSavSimulationBannersUserViewsGoals/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /avSavSimulationBanners/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /avSavSimulationBannersUsers/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /PWA-TermsAndConditions/{document=**} {
+    	allow read: if isSignedIn();
+    }
+    match /datacardUsers/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /autoNotifications/{document=**} {
+    	allow read;
+      allow write;
+    }
+    match /unemploymentInsurance/{document=**} {
+    	allow read: if isSignedIn();
+    	allow write: if isSignedIn();
+    }
+    match /savConsumerUsers/{document=**} {
+    	allow read: if isSignedIn();
+    	allow write: if isSignedIn();
+    }
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+    function incomingData() {
+      return request.resource.data
+    }
+    function isAdmin() {
+    	return get(/databases/$(database)/documents/adminUsers/$(request.auth.uid)).data != null;
+    }
+  }
+}
