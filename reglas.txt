@@ -66,6 +66,10 @@ service cloud.firestore {
         allow write: if isSignedIn();
         allow read;
     }
+    match /Bullet-status/{document=**} {
+        allow read: if isSignedIn();
+        allow write: if isSignedIn();
+    }
     match /cardBenefits/{document=**} {
     	allow read;
     }
@@ -123,6 +127,20 @@ service cloud.firestore {
     match /disclaimerData/{document=**} {
     	allow read;
     }
+    match /usPersonSightAccount/{document=**} {
+        allow read;
+        allow write: if isSignedIn();
+    }
+    match /badges/{document=**} {
+        allow read;
+    }
+    match /categories/{document=**} {
+        allow read;
+    }
+    match /campaigns/{document=**} {
+        allow read;
+        allow write: if isSignedIn();
+    }
     match /company-category/{document=**} {
     	allow read;
         allow write;
@@ -144,9 +162,6 @@ service cloud.firestore {
     	allow read;
         allow write;
     }
-    match /badges/{document=**} {
-    	allow read;
-    }
     match /bannerCampaigns/{document=**} {
     	allow read;
         allow write: if isSignedIn();
@@ -157,17 +172,6 @@ service cloud.firestore {
     }
     match /campaign/{document=**} {
     	allow read;
-    }
-    match /categories/{document=**} {
-    	allow read;
-    }
-    match /usPersonSightAccount/{document=**} {
-        allow read;
-        allow write: if isSignedIn();
-    }
-    match /campaigns/{document=**} {
-        allow read;
-        allow write: if isSignedIn();
     }
     match /additionalStoresForMap/{document=**} {
         allow read;
@@ -280,10 +284,6 @@ service cloud.firestore {
     }
     match /NPS-OnOff/{document=**} {
     	allow read: if isSignedIn();
-    }
-    match /Bullet-status/{document=**} {
-    	allow read: if isSignedIn();
-        allow write: if isSignedIn();
     }
     match /NFC-status/{document=**} {
     	allow read: if isSignedIn();
